@@ -1,16 +1,16 @@
 import mysql.connector
 
-con = mysql.connector.connect(host="localhost", user="root", password="password", database="emp")
+con = mysql.connector.connect(host="localhost", user="root", password="eden1981!", database="emp")
 
 #function to check if employee with given id exists or not
 
 def check_employee(employee_id):
     #query to select all rows from employee table
-    sql = 'select * from empd where id=%s'
+    sql = 'select * from emp where id=%s'
 
     #making cursor buffered to make rowcount method work properly
     c = con.cursor(buffered=True)
-    data = (employee_id)
+    data = (employee_id,)
 
     #executing the sql query
     c.execute(sql, data)
@@ -42,7 +42,7 @@ def Add_Employ():
 
         #inserting employee details into the employee table
 
-        sql = 'insert into empd values(%s,%s,%s,%s)'
+        sql = 'insert into emp values(%s,%s,%s,%s)'
         c = con.cursor()
 
         #execusting the sql qwuery
@@ -53,7 +53,7 @@ def Add_Employ():
         print("Employee successfully added")
         menu()
 
-def Remvoe_Employ():
+def Remove_Employ():
     Id = input("Enter employee id: ")
 
     #checking if employee with given id exists
@@ -62,7 +62,7 @@ def Remvoe_Employ():
         menu()
     else:
         #quest to delete employee from table
-        sql = 'delete from empd where id=%s'
+        sql = 'delete from emp where id=%s'
         data = (Id,)
         c = con.cursor()
 
@@ -85,7 +85,7 @@ def Promote_Employee():
         Amount = int(input("Enter increase in Salary"))
 
         #Query to fetch salary of employee
-        sql = 'select salary from empd where id=%s'
+        sql = 'select salary from emp where id=%s'
         data = (Id,)
         c = con.cursor()
 
@@ -96,7 +96,7 @@ def Promote_Employee():
         r = c.fetchone()
         t = r[0]+Amount
         #query to update salary of employee
-        sql = 'udate emp set salary=%s where id=%s'
+        sql = 'update emp set salary=%s where id=%s'
         d = (t, Id)
 
         #executing the sql query
@@ -143,11 +143,11 @@ def menu():
     if ch == 1:
         Add_Employ()
     elif ch == 2:
-        Remove_employ()
+        Remove_Employ()
     elif ch == 3:
-        Promote_employee()
+        Promote_Employee()
     elif ch == 4:
-        Display_employees()
+        Display_Employees()
     elif ch == 5:
         exit(0)
     else:
